@@ -1,0 +1,77 @@
+name: Build & Release
+
+# Triggers:
+#   - Push a tag like "v1.2.3" → auto-builds and publishes a GitHub Release
+#   - Go to Actions → "Build & Release" → "Run workflow" → enter version manually
+on:
+  push:
+    tags:
+      - 'v[0-9]*.[0-9]*.[0-9]*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (e.g. 1.2.3 — no "v" prefix)'
+        required: true
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Java 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Resolve version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "VALUE=${{ github.event.inputs.version }}" >> $GITHUB_OUTPUT
+          else
+            # Strip the leading "v" from the tag name
+            echo "VALUE=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Set version in pom.xml
+        run: mvn -B versions:set -DnewVersion=${{ steps.version.outputs.VALUE }} -DgenerateBackupPoms=false
+
+      - name: Build plugin JAR
+        run: mvn -B package -DskipTests
+
+      - name: Verify JAR was produced
+        run: ls -lh target/MCMS.jar
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ steps.version.outputs.VALUE }}
+          name: "MCMS v${{ steps.version.outputs.VALUE }}"
+          body: |
+            ## Make Console Make Sense — v${{ steps.version.outputs.VALUE }}
+
+            ### Installation
+            1. Download `MCMS.jar` below
+            2. Drop it into your server's `plugins/` folder
+            3. Restart the server
+
+            ### Supported Platforms
+            Bukkit · Spigot · Paper · Purpur · Folia · all Paper forks (1.18+)
+
+            ### Auto-Update
+            If you already have MCMS installed and `auto-update.enabled: true` in config.yml,
+            the plugin will download this update automatically on next startup.
+
+            ---
+            *See commit history for changes in this release.*
+          files: target/MCMS.jar
+          draft: false
+          prerelease: false
+          make_latest: true

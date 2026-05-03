@@ -1,0 +1,21 @@
+name: MCMS
+version: '${project.version}'
+main: com.dima.mcms.MCMSPlugin
+api-version: '1.18'
+description: Make Console Make Sense — human-readable Minecraft console output
+
+website: https://github.com/chank-op/MCMS-Make-Console-Make-Sense
+
+commands:
+  mcms:
+    description: MCMS main command
+    usage: /mcms [stats|update|reload|help]
+    permission: mcms.use
+
+permissions:
+  mcms.use:
+    description: Use /mcms command
+    default: op
+  mcms.admin:
+    description: Use /mcms update and /mcms reload, receive update notifications
+    default: op

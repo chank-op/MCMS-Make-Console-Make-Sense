@@ -1,0 +1,10 @@
+# ╔══════════════════════════════════════════╗
+# ║   Make Console Make Sense (MCMS)         ║
+# ╚══════════════════════════════════════════╝
+
+# Check GitHub for updates on every server startup and yell at you if you're behind
+check-for-updates: true
+
+# Your GitHub repo in "username/repo" format
+# THIS MUST BE SET for update checks to work
+github-repo: "chank-op/MCMS-Make-Console-Make-Sense"

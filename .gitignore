@@ -1,0 +1,48 @@
+# ─── Maven ──────────────────────────────────────────────────
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+
+# ─── IntelliJ IDEA ──────────────────────────────────────────
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# ─── Eclipse ────────────────────────────────────────────────
+.classpath
+.project
+.settings/
+bin/
+
+# ─── VS Code ────────────────────────────────────────────────
+.vscode/
+
+# ─── macOS ──────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+.AppleDouble
+.LSOverride
+Icon
+
+# ─── Logs ───────────────────────────────────────────────────
+*.log
+logs/
+
+# ─── Compiled JARs ──────────────────────────────────────────
+# Built output goes to target/ (already ignored above)
+# This catches any stray JARs dropped in the root
+*.jar
+
+# ─── Modrinth description ───────────────────────────────────
+# Separate from the GitHub README — not needed in the repo
+MODRINTH.md
