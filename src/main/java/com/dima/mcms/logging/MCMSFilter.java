@@ -12,6 +12,7 @@ public class MCMSFilter extends AbstractFilter {
 
     private final MessageTransformer transformer;
     private final Logger mcmsLogger;
+    private volatile boolean active = true;
 
     public MCMSFilter(MessageTransformer transformer) {
         super(Result.NEUTRAL, Result.NEUTRAL);
@@ -19,8 +20,14 @@ public class MCMSFilter extends AbstractFilter {
         this.mcmsLogger = LogManager.getLogger("MCMS");
     }
 
+    public void deactivate() {
+        active = false;
+    }
+
     @Override
     public Result filter(LogEvent event) {
+        if (!active) return Result.NEUTRAL;
+
         // Never intercept our own log output — prevents infinite loops
         if (event.getLoggerName() != null && event.getLoggerName().startsWith(MCMS_LOGGER_PREFIX)) {
             return Result.NEUTRAL;

@@ -50,8 +50,7 @@ public class MCMSPlugin extends JavaPlugin {
     }
 
     private void removeFilter() {
-        LoggerContext context = (LoggerContext) LogManager.getContext(false);
-        context.getRootLogger().removeFilter(filter);
+        filter.deactivate();
     }
 
     public MessageTransformer getTransformer() {
