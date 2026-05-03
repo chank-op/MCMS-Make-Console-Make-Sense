@@ -5,7 +5,7 @@
 [![GitHub Release](https://img.shields.io/github/v/release/chank-op/MCMS-Make-Console-Make-Sense?style=flat-square)](https://github.com/chank-op/MCMS-Make-Console-Make-Sense/releases/latest)
 [![Modrinth](https://img.shields.io/modrinth/dt/mcms?style=flat-square&logo=modrinth)](https://modrinth.com/plugin/mcms)
 [![Minecraft](https://img.shields.io/badge/Minecraft-1.18--26.1.2-brightgreen?style=flat-square)](https://papermc.io/)
-[![Java](https://img.shields.io/badge/Java-17+-orange?style=flat-square)](https://adoptium.net/)
+[![Java](https://img.shields.io/badge/Java-25-orange?style=flat-square)](https://adoptium.net/)
 [![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)](LICENSE)
 
 ---
