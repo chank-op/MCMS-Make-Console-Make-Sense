@@ -1,5 +1,8 @@
 package com.dima.mcms;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,45 +12,43 @@ import java.util.List;
 
 public final class StartupBanner {
 
+    private static final Logger log = LogManager.getLogger("MCMS");
+
     private StartupBanner() {}
 
     public static void print(String version) {
         List<String> art = loadBanner();
         boolean color = ConsoleStyle.isSupported();
 
-        System.out.println();
+        log.info("");
 
         if (color) {
             String[] grad = ConsoleStyle.BANNER_GRADIENT;
             for (int i = 0; i < art.size(); i++) {
-                System.out.println(ConsoleStyle.BOLD + grad[i % grad.length] + art.get(i) + ConsoleStyle.RESET);
+                log.info(ConsoleStyle.BOLD + grad[i % grad.length] + art.get(i) + ConsoleStyle.RESET);
             }
-            System.out.println();
-            System.out.println(
-                "  " + ConsoleStyle.BOLD + ConsoleStyle.BRIGHT_CYAN + "Make Console Make Sense" + ConsoleStyle.RESET
+            log.info("");
+            log.info("  " + ConsoleStyle.BOLD + ConsoleStyle.BRIGHT_CYAN + "Make Console Make Sense" + ConsoleStyle.RESET
                 + ConsoleStyle.PURPLE + " v" + version + ConsoleStyle.RESET
-                + ConsoleStyle.BRIGHT_GREEN + "  — active & judging every single error on your server" + ConsoleStyle.RESET
-            );
+                + ConsoleStyle.BRIGHT_GREEN + "  — active & judging every single error on your server" + ConsoleStyle.RESET);
         } else {
             for (String line : art) {
-                System.out.println(line);
+                log.info(line);
             }
-            System.out.println();
-            System.out.println("  Make Console Make Sense v" + version + " — active");
+            log.info("");
+            log.info("  Make Console Make Sense v" + version + " — active");
         }
 
-        System.out.println();
+        log.info("");
     }
 
     public static void printShutdown() {
         if (!ConsoleStyle.isSupported()) {
-            System.out.println("  [MCMS] Disabled. Console goes back to being unreadable. You're on your own.");
+            log.info("  [MCMS] Disabled. Console goes back to being unreadable. You're on your own.");
             return;
         }
-        System.out.println(
-            "  " + ConsoleStyle.BOLD + ConsoleStyle.PURPLE + "[MCMS]" + ConsoleStyle.RESET
-            + ConsoleStyle.CYAN + " Disabled. Console goes back to being unreadable. You're on your own." + ConsoleStyle.RESET
-        );
+        log.info("  " + ConsoleStyle.BOLD + ConsoleStyle.PURPLE + "[MCMS]" + ConsoleStyle.RESET
+            + ConsoleStyle.CYAN + " Disabled. Console goes back to being unreadable. You're on your own." + ConsoleStyle.RESET);
     }
 
     private static List<String> loadBanner() {
