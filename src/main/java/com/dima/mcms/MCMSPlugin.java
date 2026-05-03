@@ -30,7 +30,7 @@ public class MCMSPlugin extends JavaPlugin {
 
         if (getConfig().getBoolean("check-for-updates", true)) {
             String repo = getConfig().getString("github-repo", "");
-            if (!repo.isBlank() && !repo.equals("chank-op/MCMS-Make-Console-Make-Sense")) {
+            if (!repo.isBlank()) {
                 new UpdateChecker(this, repo).checkAsync();
             } else {
                 getLogger().warning("[MCMS] Update checks are on but 'github-repo' is not set in config.yml.");
